@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import ThemeToggle from "../../../components/ThemeToggle";
 import { projects } from "../../../data/portfolio";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -28,7 +29,10 @@ export default async function ProjectPage({ params }: Props) {
 
   return (
     <main className="shell detail">
-      <Link className="back" href="/#proyectos">← Volver a proyectos</Link>
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <Link className="back" href="/#proyectos">← Volver a proyectos</Link>
+        <ThemeToggle />
+      </div>
       <header className="py-12">
         <p className="eyebrow">{project.area}</p>
         <h1>{project.title}</h1>
@@ -41,6 +45,13 @@ export default async function ProjectPage({ params }: Props) {
       <section className="section split">
         <h2>Evidencias</h2>
         <div className="grid gap-4">
+          {project.video && (
+            <figure className="grid gap-2">
+              <video className="evidence-image" src={project.video.src} poster={project.video.poster}
+                controls playsInline preload="none" aria-label={project.video.caption} />
+              <figcaption className="text-sm">{project.video.caption}</figcaption>
+            </figure>
+          )}
           {project.figures?.map(({ src, caption, alt, width, height }) => (
             <figure key={src} className="grid gap-2">
               <a href={src} aria-label={`Ver imagen completa. ${alt}`}>

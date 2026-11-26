@@ -19,6 +19,7 @@ type Project = {
   pending?: string;
   evidence?: Evidence[];
   figures?: Figure[];
+  video?: { src: string; poster: string; caption: string };
 };
 
 export const projects: Project[] = [
@@ -31,23 +32,33 @@ export const projects: Project[] = [
     goal: "Ajustar un modelo lineal e interpretar sus predicciones con una gráfica.",
     tools: ["Regresión lineal"],
     method: "La regresión lineal ajusta una recta a los pares de datos para estimar la variable de salida. La gráfica permite comparar los datos observados con el ajuste.",
-    result: "Pendiente de verificar con el ejercicio original.",
+    result: "El equipo compartió el cuaderno de la actividad en Google Colab. El acceso puede requerir permiso. Quedan por documentar sus resultados específicos.",
+    evidence: [
+      { label: "Abrir cuaderno en Google Colab", href: "https://colab.research.google.com/drive/1JdNEOVtKKmBXlZXub3pOQljFDMoVDxqB" },
+    ],
     pending: "Código o notebook, gráfica del ajuste y captura del funcionamiento.",
   },
   {
     slug: "laberinto",
-    title: "Laberinto",
+    title: "Laberinto interactivo",
     area: "Semana 4 · Decisiones",
     summary: "Representar las decisiones que permiten avanzar por un laberinto.",
     problem: "Elegir un movimiento cuando existen caminos, obstáculos y posibles callejones.",
     goal: "Resolver el recorrido y explicar cómo se toman las decisiones.",
     tools: ["Python", "Tkinter", "SQLite", "Búsqueda en profundidad"],
     method: "El programa genera un tablero aleatorio de 21 × 15 y abre cinco paredes para añadir conexiones. Desde la casilla inicial explora cada movimiento válido sin repetir casillas en la misma ruta. Cuando llega a la meta, guarda el camino y luego retrocede para probar otras ramas. Al final ordena las rutas por longitud. Se juega con las flechas, N muestra las rutas, R reinicia y T abre el ranking.",
-    result: "En el tablero de ejemplo se encontraron 24 rutas sin repetir casillas. La más corta requirió 60 movimientos. Al llegar a la meta, el juego compara los movimientos realizados con el mínimo y guarda la eficiencia en SQLite. Una partida por la ruta más corta obtiene 100 %.",
+    result: "En la demostración grabada por el equipo, una partida terminó con 88 % de eficiencia. En el tablero ilustrado también se encontraron 24 rutas sin repetir casillas y la más corta requirió 60 movimientos. Al llegar a la meta, el juego compara los movimientos realizados con el mínimo y guarda la eficiencia en SQLite. Una partida por la ruta más corta obtiene 100 %.",
     evidence: [
       { label: "Descargar código del laberinto (.py)", href: "/evidencias/laberinto/laberinto.py", download: true },
     ],
+    video: {
+      src: "/evidencias/laberinto/laberinto-demostracion.mp4",
+      poster: "/evidencias/laberinto/laberinto-tablero.jpg",
+      caption: "Demostración del equipo: tablero, rutas y partida completada.",
+    },
     figures: [
+      { src: "/evidencias/laberinto/laberinto-rutas.jpg", caption: "Captura de la demostración: visualización de una ruta.", alt: "Interfaz del laberinto con una ruta celeste.", width: 1280, height: 672 },
+      { src: "/evidencias/laberinto/laberinto-resultado.jpg", caption: "Captura de la partida grabada, completada con 88 % de eficiencia.", alt: "Mensaje de victoria y eficiencia del 88 %.", width: 1280, height: 672 },
       { src: "/evidencias/laberinto/ruta-mas-corta.png", caption: "Tablero generado por el código. La línea celeste muestra una ruta mínima de 60 movimientos.", alt: "Laberinto con la ruta más corta en celeste, la salida en amarillo y la meta en verde.", width: 588, height: 420 },
     ],
   },
@@ -86,6 +97,10 @@ export const projects: Project[] = [
       { label: "Descargar datos de los cines (.csv)", href: "/evidencias/hotspots/cines_oriente_el_salvador.csv", download: true },
       { label: "Descargar informe académico (.docx)", href: "/evidencias/Informe_Hotspots_El_Salvador.docx", download: true },
     ],
+    figures: [
+      { src: "/evidencias/hotspots/hotspots-datos-presentacion.png", caption: "Presentación del equipo: datos de los cines.", alt: "Diapositiva del equipo sobre los registros geográficos de los cines.", width: 1200, height: 675 },
+      { src: "/evidencias/hotspots/hotspots-resultados-presentacion.png", caption: "Presentación del equipo: resultados del análisis.", alt: "Diapositiva del equipo con resultados y limitaciones.", width: 1200, height: 675 },
+    ],
   },
   {
     slug: "portafolio",
@@ -100,5 +115,23 @@ export const projects: Project[] = [
     figures: [
       { src: "/evidencias/captura-portafolio.png", caption: "Captura de la página de inicio.", alt: "Inicio del portafolio en una computadora.", width: 1440, height: 1000 },
     ],
+  },
+];
+
+export const personalProjects = [
+  {
+    title: "Seedly",
+    tools: ["Power Apps"],
+    description: "Aplicación para cuidar plantas. Enviaba recordatorios de riego e incluía un sistema de recompensas para motivar a las personas a volver y mantener su rutina de cuidado.",
+  },
+  {
+    title: "Huertify",
+    tools: ["Kodular", "Arduino", "Servomotores"],
+    description: "Aplicación con pronósticos del clima por zona e información sobre plantas. Un botón accionaba dos servomotores controlados por Arduino para cerrar la cubierta si iba a llover o abrirla cuando la planta necesitaba más sol.",
+  },
+  {
+    title: "Kiroo",
+    tools: ["Desarrollo web"],
+    description: "Página web para el cuidado de vehículos. Conectaba a conductores con mecánicos y talleres, permitía dar seguimiento al estado de su vehículo y calificar a los mecánicos.",
   },
 ];

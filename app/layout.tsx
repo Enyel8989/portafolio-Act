@@ -8,5 +8,14 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="es"><body>{children}</body></html>;
+  return (
+    <html lang="es" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html:
+          'try { if (localStorage.getItem("portfolio-theme") === "light") document.documentElement.dataset.theme = "light"; } catch {}'
+        }} />
+      </head>
+      <body>{children}</body>
+    </html>
+  );
 }

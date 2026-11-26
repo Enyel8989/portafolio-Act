@@ -1,7 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import ContactForm from "../components/ContactForm";
-import { profile, projects } from "../data/portfolio";
+import ThemeToggle from "../components/ThemeToggle";
+import { personalProjects, profile, projects } from "../data/portfolio";
 
 const navigation = [
   ["Sobre mí", "#sobre-mi"], ["Experiencia", "#experiencia"], ["Proyectos", "#proyectos"],
@@ -25,6 +26,7 @@ export default function Home() {
         <nav aria-label="Secciones del portafolio" className="flex flex-wrap gap-x-5 gap-y-2">
           {navigation.map(([name, href]) => <a key={href} href={href}>{name}</a>)}
         </nav>
+        <ThemeToggle />
       </header>
       <main id="inicio">
         <section className="shell hero grid items-center gap-10 md:grid-cols-[1.35fr_1fr]" aria-labelledby="nombre">
@@ -57,13 +59,43 @@ export default function Home() {
           </section>
           <section id="proyectos" className="section">
             <h2>Proyectos del curso</h2>
-            <div className="project-list">
-              {projects.filter(({ slug }) => slug !== "portafolio").map(project => (
-                <Link className="project-row" href={`/proyectos/${project.slug}`} key={project.slug}>
-                  <div><p className="eyebrow">{project.area}</p><h3>{project.title}</h3></div>
-                  <p>{project.summary}</p>
-                  <span className="project-arrow" aria-hidden="true">↗</span>
-                </Link>
+            <div className="project-grid">
+              {projects.filter(({ slug }) => slug !== "portafolio").map(project => {
+                const cover = project.figures?.[0];
+                return (
+                  <Link className="project-card" href={`/proyectos/${project.slug}`} key={project.slug}>
+                    {cover ? (
+                      <div className="project-cover">
+                        <Image src={cover.src} alt="" fill sizes="(max-width: 650px) 95vw, (max-width: 1150px) 48vw, 534px" />
+                      </div>
+                    ) : (
+                      <div className="project-cover regression-cover" aria-hidden="true">
+                        <span className="regression-line" />
+                      </div>
+                    )}
+                    <div className="project-body">
+                      <p className="eyebrow">{project.area}</p>
+                      <h3>{project.title}</h3>
+                      <p>{project.summary}</p>
+                      <ul className="tags flex flex-wrap gap-2" aria-label="Tecnologías">
+                        {project.tools.slice(0, 3).map(tool => <li key={tool}>{tool}</li>)}
+                      </ul>
+                      <span className="project-arrow">Explorar proyecto <span aria-hidden="true">↗</span></span>
+                    </div>
+                  </Link>
+                );
+              })}
+            </div>
+            <h3 className="personal-heading">Otros proyectos</h3>
+            <div className="personal-grid">
+              {personalProjects.map(project => (
+                <article className="project-card project-body" key={project.title}>
+                  <h4>{project.title}</h4>
+                  <p>{project.description}</p>
+                  <ul className="tags flex flex-wrap gap-2" aria-label="Tecnologías">
+                    {project.tools.map(tool => <li key={tool}>{tool}</li>)}
+                  </ul>
+                </article>
               ))}
             </div>
           </section>
